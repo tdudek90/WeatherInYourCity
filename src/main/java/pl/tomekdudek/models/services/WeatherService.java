@@ -26,6 +26,10 @@ public class WeatherService {
         return temperature;
     }
 
+    public double getTemperatureInCelsius(double temperature) {
+        return Utils.changeKelvinToCelsius(temperature);
+    }
+
     public int getPressure() {
         return pressure;
     }
@@ -40,7 +44,7 @@ public class WeatherService {
         apiId = configuration.getAPIID();
 
         apiUrl = apiUrl + city + "&appid=" + apiId;
-        parseJsonData((Utils.connectAndResponse(apiUrl)));
+        parseJsonData(Utils.connectAndResponse(apiUrl));
 
     }
 
@@ -52,8 +56,6 @@ public class WeatherService {
         humidity = mainObject.getInt("humidity");
 
     }
-
-  
 
 
 }

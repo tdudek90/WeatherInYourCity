@@ -27,4 +27,8 @@ public class Utils {
 
         return stringBuffer.toString();
     }
+
+    public static double changeKelvinToCelsius(double temperature){
+        return temperature - 273.15;
+    }
 }
