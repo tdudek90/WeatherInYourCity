@@ -54,7 +54,14 @@ public class WeatherService {
         temperature = mainObject.getDouble("temp");
         pressure = mainObject.getInt("pressure");
         humidity = mainObject.getInt("humidity");
+        viewWeatherInformation(temperature,pressure,humidity);
 
+    }
+
+    public void viewWeatherInformation(double temperature, int pressure, int humidity){
+        System.out.println("Temperature: " + Utils.changeKelvinToCelsius(temperature));
+        System.out.println("Pressure: " + pressure);
+        System.out.println("Humidity: " + humidity);
     }
 
 
