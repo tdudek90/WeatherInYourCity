@@ -7,6 +7,13 @@ public class WeatherInfo {
 
     private double temperature;
     private int pressure;
+
+    public WeatherInfo(double temperature, int pressure, int humidity) {
+        this.temperature = temperature;
+        this.pressure = pressure;
+        this.humidity = humidity;
+    }
+
     private int humidity;
     private String city;
 

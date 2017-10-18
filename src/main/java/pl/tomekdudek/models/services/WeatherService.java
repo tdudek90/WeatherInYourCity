@@ -3,6 +3,7 @@ package pl.tomekdudek.models.services;
 
 import org.json.JSONObject;
 import pl.tomekdudek.models.Configuration;
+import pl.tomekdudek.models.IWeatherObserver;
 import pl.tomekdudek.models.Utils;
 
 public class WeatherService {
@@ -21,6 +22,8 @@ public class WeatherService {
     private double temperature;
     private int pressure;
     private int humidity;
+
+    private IWeatherObserver weatherObserver;
 
     public double getTemperature() {
         return temperature;
@@ -48,20 +51,26 @@ public class WeatherService {
 
     }
 
-    public void parseJsonData(String data) {
-        JSONObject object = new JSONObject(data);
+    public void parseJsonData(String jsonData) {
+        JSONObject object = new JSONObject(jsonData);
         JSONObject mainObject = object.getJSONObject("main");
         temperature = mainObject.getDouble("temp");
         pressure = mainObject.getInt("pressure");
         humidity = mainObject.getInt("humidity");
-        viewWeatherInformation(temperature,pressure,humidity);
+        viewWeatherInformation(temperature, pressure, humidity);
+
+        weatherObserver.onWeatherUpdate(new WeatherInfo(temperature, pressure, humidity));
 
     }
 
-    public void viewWeatherInformation(double temperature, int pressure, int humidity){
+    public void viewWeatherInformation(double temperature, int pressure, int humidity) {
         System.out.println("Temperature: " + Utils.changeKelvinToCelsius(temperature));
         System.out.println("Pressure: " + pressure);
         System.out.println("Humidity: " + humidity);
+    }
+
+    public void registerObserver(IWeatherObserver weatherObserver) {
+        this.weatherObserver = weatherObserver;
     }
 
 
