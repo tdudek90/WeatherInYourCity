@@ -26,7 +26,7 @@ public class MainController implements Initializable, IWeatherObserver {
     private WeatherService weatherService = WeatherService.getService();
 
     @FXML
-    private Label textWeather;
+    private Label viewWeatherLabel;
 
 
     @Override
@@ -47,7 +47,7 @@ public class MainController implements Initializable, IWeatherObserver {
 
     @Override
     public void onWeatherUpdate(WeatherInfo weatherInfo) {
-        textWeather.setText("Temperature: " + Utils.changeKelvinToCelsius(weatherInfo.getTemperature()) +
+        viewWeatherLabel.setText("Temperature: " + Utils.changeKelvinToCelsius(weatherInfo.getTemperature()) +
                 "\n" + "Pressure: " + weatherInfo.getPressure() +
                 "\n" + "Humidity: " + weatherInfo.getHumidity());
     }

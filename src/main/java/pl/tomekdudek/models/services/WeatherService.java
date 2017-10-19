@@ -6,6 +6,9 @@ import pl.tomekdudek.models.Configuration;
 import pl.tomekdudek.models.IWeatherObserver;
 import pl.tomekdudek.models.Utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class WeatherService {
     private static WeatherService ourInstance = new WeatherService();
 
@@ -23,7 +26,7 @@ public class WeatherService {
     private int pressure;
     private int humidity;
 
-    private IWeatherObserver weatherObserver;
+    private List<IWeatherObserver> weatherObserver = new ArrayList<>();
 
     public double getTemperature() {
         return temperature;
@@ -59,7 +62,9 @@ public class WeatherService {
         humidity = mainObject.getInt("humidity");
         viewWeatherInformation(temperature, pressure, humidity);
 
-        weatherObserver.onWeatherUpdate(new WeatherInfo(temperature, pressure, humidity));
+        for (IWeatherObserver iWeatherObserver : weatherObserver) {
+            iWeatherObserver.onWeatherUpdate(new WeatherInfo(temperature,pressure,humidity));
+        }
 
     }
 
@@ -70,7 +75,7 @@ public class WeatherService {
     }
 
     public void registerObserver(IWeatherObserver weatherObserver) {
-        this.weatherObserver = weatherObserver;
+        this.weatherObserver.add(weatherObserver);
     }
 
 
