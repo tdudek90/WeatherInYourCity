@@ -1,5 +1,7 @@
 package pl.tomekdudek.models;
 
+import javafx.scene.control.Alert;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -30,5 +32,12 @@ public class Utils {
 
     public static double changeKelvinToCelsius(double temperature){
         return temperature - 273.15;
+    }
+
+    public static void showAlert(String title, String text){
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle(title);
+        alert.setContentText(text);
+        alert.showAndWait();
     }
 }

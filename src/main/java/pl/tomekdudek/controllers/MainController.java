@@ -10,7 +10,6 @@ import pl.tomekdudek.models.IWeatherObserver;
 import pl.tomekdudek.models.Utils;
 import pl.tomekdudek.models.services.WeatherInfo;
 import pl.tomekdudek.models.services.WeatherService;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -33,8 +32,12 @@ public class MainController implements Initializable, IWeatherObserver {
     public void initialize(URL location, ResourceBundle resources) {
         weatherService.registerObserver(this);
         showWeatherButton.setOnMouseClicked(e -> {
-            weatherService.makeCall(cityTextField.getText());
-            cityTextField.clear();
+            if (!cityTextField.getText().isEmpty() && cityTextField.getText().length() > 2){
+                weatherService.makeCall(cityTextField.getText());
+                cityTextField.clear();
+            }else {
+                Utils.showAlert("ERROR", "Wrong city name");
+            }
         });
 
         cityTextField.setOnKeyPressed(e -> {
