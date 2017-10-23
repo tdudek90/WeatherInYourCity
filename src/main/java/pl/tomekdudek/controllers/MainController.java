@@ -27,16 +27,21 @@ public class MainController implements Initializable, IWeatherObserver {
     @FXML
     private Label viewWeatherLabel;
 
+    @FXML
+    private TextField cityID;
+
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         weatherService.registerObserver(this);
         showWeatherButton.setOnMouseClicked(e -> {
-            if (!cityTextField.getText().isEmpty() && cityTextField.getText().length() > 2){
+            if (!cityTextField.getText().isEmpty() && cityTextField.getText().length() > 2) {
                 weatherService.makeCall(cityTextField.getText());
                 cityTextField.clear();
-            }else {
-                Utils.showAlert("ERROR", "Wrong city name");
+            } else if (!cityID.getText().isEmpty() && cityID.getText().length() > 2) {
+                weatherService.makeCall(Integer.parseInt(cityID.getText()));
+            } else {
+                Utils.showAlert("ERROR", "Wrong city name or ID");
             }
         });
 
@@ -46,6 +51,14 @@ public class MainController implements Initializable, IWeatherObserver {
                 cityTextField.clear();
             }
         });
+
+        cityID.setOnKeyPressed(e -> {
+            if (e.getCode() == KeyCode.ENTER) {
+                weatherService.makeCall(Integer.parseInt(cityID.getText()));
+                cityID.clear();
+            }
+        });
+
     }
 
     @Override

@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import pl.tomekdudek.models.Configuration;
 import pl.tomekdudek.models.IWeatherObserver;
 import pl.tomekdudek.models.Utils;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
@@ -55,7 +56,7 @@ public class WeatherService {
         apiUrl = configuration.getAPIURL();
         apiId = configuration.getAPIID();
 
-        apiUrl = apiUrl + city + "&appid=" + apiId;
+        apiUrl = apiUrl + "q=" + city + "&appid=" + apiId;
         Runnable runnable = new Runnable() {
             @Override
             public void run() {
@@ -64,6 +65,21 @@ public class WeatherService {
         };
         executorService.execute(runnable);
 
+    }
+
+    public void makeCall(int cityID) {
+        Configuration configuration = new Configuration();
+        apiUrl = configuration.getAPIURL();
+        apiId = configuration.getAPIID();
+
+        apiUrl = apiUrl + "id=" + cityID + "&appid=" + apiId;
+        Runnable runnable = new Runnable() {
+            @Override
+            public void run() {
+                parseJsonData(Utils.connectAndResponse(apiUrl));
+            }
+        };
+        executorService.execute(runnable);
     }
 
     public void parseJsonData(String jsonData) {
@@ -83,7 +99,6 @@ public class WeatherService {
             }
         });
     }
-
 
     public void viewWeatherInformation(double temperature, int pressure, int humidity) {
         System.out.println("Temperature: " + Utils.changeKelvinToCelsius(temperature));
