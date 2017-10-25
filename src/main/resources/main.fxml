@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
@@ -11,9 +12,14 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="pl.tomekdudek.controllers.MainController">
    <children>
+      <ImageView>
+         <image>
+            <Image url="@sky.jpg" />
+         </image>
+      </ImageView>
       <Button fx:id="showWeatherButton" layoutX="276.0" layoutY="258.0" mnemonicParsing="false" text="Show weather" />
       <TextField fx:id="cityTextField" alignment="TOP_CENTER" layoutX="196.0" layoutY="200.0" prefHeight="25.0" prefWidth="250.0" promptText="Enter your city" />
-      <Label fx:id="viewWeatherLabel" layoutX="14.0" layoutY="21.0" prefHeight="161.0" prefWidth="312.0" textAlignment="CENTER">
+      <Label fx:id="viewWeatherLabel" layoutX="14.0" layoutY="14.0" prefHeight="161.0" prefWidth="312.0" textAlignment="CENTER">
          <font>
             <Font size="20.0" />
          </font>
